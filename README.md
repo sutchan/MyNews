@@ -4,25 +4,25 @@
   <img src="public/256.png" alt="">
 </h1>
 
-*What Happen*
+*《今日时事》*
 
-**A Modern And Minimalist News Aggregation Platform**
+**一个现代化简约的新闻聚合平台**
 
-*Stay informed with real-time news from multiple sources*
+*实时聚合多源资讯，掌握天下动态*
 
-[简体中文](./README-zh_CN.md) | English
+简体中文 | [English](./README-zh_CN.md)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Vue 3](https://img.shields.io/badge/Vue-3.x-4FC08D.svg)](https://vuejs.org/)
-[![Nuxt4](https://img.shields.io/badge/Nuxt-4.x-00DC82.svg)](https://nuxt.com/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6.svg)](https://www.typescriptlang.org/)
-[![Vite](https://img.shields.io/badge/Vite-6.x-646CFF.svg)](https://vitejs.dev/)
+[![Vue 3](https://img.shields.io/badge/Vue-3.5-4FC08D.svg)](https://vuejs.org/)
+[![Nuxt4](https://img.shields.io/badge/Nuxt-4.0-00DC82.svg)](https://nuxt.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.6-3178C6.svg)](https://www.typescriptlang.org/)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.1-38B2AC.svg)](https://tailwindcss.com/)
 
 </div>
 
 ---
 
-## Screenshots
+## 产品截图
 
 ![浅色模式](public/screen.png)
 ![深色模式](public/screen-dark.png)
@@ -31,144 +31,144 @@
 ![tech](public/tech.png)
 ![favorites](public/favorites.png)
 
+## 项目介绍
 
-## Overview
+《今日时事》 是一个综合性的新闻聚合平台，整合了来自社交媒体、科技资讯、金融市场和娱乐等多个热门源的信息。采用现代化的Web技术构建，为用户提供简洁、直观的界面，让您轻松掌握全球动态。
 
-《What Happen》 is a comprehensive news aggregation platform that brings together information from multiple popular sources including social media, tech news, financial markets, and entertainment. Built with modern web technologies, it provides a clean, intuitive interface for staying updated with what's happening around the world.
+### 核心特性
 
-### Key Features
+- **多平台聚合**: 集成30+平台资讯，包括微博、GitHub、豆瓣、B站等主流平台
+- **智能分类**: 按科技、财经、社交媒体、娱乐、体育等领域组织内容
+- **实时更新**: 实时数据同步，支持自动刷新功能
+- **响应式设计**: 针对桌面端和移动端优化的浏览体验
+- **主题切换**: 支持暗色/亮色主题无缝切换
+- **收藏系统**: 保存和管理您喜爱的新闻源和文章
+- **交互组件**: 丰富的交互元素，包括悬浮卡片和详细视图
+- **拖拽排序**: 支持拖拽的可定制化卡片布局
+- **搜索筛选**: 高级筛选选项，个性化内容发现
 
-- **Multi-Platform Aggregation**: Integrates news from 30+ platforms including Weibo, GitHub, Douban, Bilibili, and more
-- **Smart Categorization**: Organized content across Technology, Finance, Social Media, Entertainment, and Sports
-- **Real-time Updates**: Live data synchronization with automatic refresh capabilities
-- **Responsive Design**: Optimized for desktop and mobile viewing experiences
-- **Dark/Light Theme**: Seamless theme switching for comfortable reading
-- **Favorites System**: Save and organize your preferred news sources and articles
-- **Interactive Components**: Rich interactive elements including hover cards and detailed views
-- **Drag & Drop**: Customizable layout with draggable news cards
-- **Search & Filter**: Advanced filtering options for personalized content discovery
+### 支持平台
 
-### Supported Platforms
+#### 社交媒体与热点
+- 微博热搜
+- 百度热搜
+- 抖音热点
+- 知乎热榜
+- 快手热门
 
-#### Social Media & Hot Topics
-- Weibo Hot Search
-- Baidu Hot Search  
-- Douyin Trending
-- Zhihu Hot
-- Kuaishou Hot
+#### 科技与开发
+- GitHub趋势
+- V2EX最新
+- IT之家资讯
+- Solidot奇客
+- 36氪科技
+- 掘金文章
 
-#### Technology & Development
-- GitHub Trending
-- V2EX Latest
-- IT Home News
-- Solidot Updates
-- 36Kr Tech News
-- Juejin Articles
+#### 财经与市场
+- 华尔街见闻
+- 热门股票
+- 金十数据
+- 市场分析
 
-#### Finance & Markets
-- Wall Street CN
-- Hot Stock Updates
-- JinShi Live
-- Market Analysis
+#### 娱乐与媒体
+- 豆瓣电影/电视
+- B站热门视频
+- 音乐排行榜（酷狗、QQ音乐）
+- 游戏赛事（英雄联盟）
 
-#### Entertainment & Media
-- Douban Movies/TV
-- Bilibili Hot Videos
-- Music Charts (KuGou, QQ Music)
-- Gaming (LOL Esports)
+#### 新闻与资讯
+- 澎湃新闻
+- 参考消息
+- 人民日报
+- 俄罗斯卫星通讯社
 
-#### News & Information
-- The Paper News
-- Reference News
-- People's Daily
-- Sputnik News CN
+## 技术栈
 
-## Tech Stack
+- **前端框架**: Nuxt 4.0 + Vue 3.5 + TypeScript 5.6
+- **构建工具**: Vite (集成在Nuxt中)
+- **样式方案**: TailwindCSS 4.1 + @nuxt/ui
+- **UI组件**: Reka UI + shadcn-nuxt
+- **状态管理**: Vue Composition API
+- **动画效果**: GSAP 3.13 + tw-animate-css
+- **图标库**: Lucide Vue Next 0.536
+- **日期处理**: Day.js 1.11
+- **拖拽功能**: Vue Draggable Plus 0.6
+- **消息通知**: Vue Sonner 2.0
+- **工具库**: @vueuse/core 13.6, clsx, tailwind-merge, class-variance-authority
 
-- **Frontend Framework**: Nuxt 4 + TypeScript
-- **Build Tool**: Vite 6.x
-- **Styling**: TailwindCSS 4.x
-- **UI Components**: Reka UI (shadcn/ui for Vue)
-- **State Management**: Vue Composition API + Pinia-like composables
-- **Animations**: GSAP + TailwindCSS animations
-- **Icons**: Lucide Vue Next
-- **Date Handling**: Day.js
-- **Drag & Drop**: Vue Draggable Plus
-- **Notifications**: Vue Sonner
+## 快速开始
 
-## Quick Start
+### 环境要求
 
-### Prerequisites
+- Node.js 18+
+- Yarn 1.22+ (项目使用yarn@1.22.22) 或 npm
 
-- Node.js 18+ 
-- Yarn 1.22+ (recommended) or npm
+### 安装步骤
 
-### Installation
-
-1. **Clone the repository**
+1. **克隆仓库**
    ```bash
-   git clone https://github.com/LYX9527/what-happen.git
-   cd what-happen
+   git clone https://github.com/sutchan/MyNews.git
+   cd MyNews
    ```
 
-2. **Install dependencies**
+2. **安装依赖**
    ```bash
    yarn install
-   # or
+   # 或
    npm install
    ```
 
-3. **Environment setup**
+3. **环境配置**
    ```bash
-   # Copy environment template
+   # 复制环境变量模板
    cp .env.example .env
    
-   # Configure API endpoint (default: http://localhost:10010)
+   # 配置API端点（默认：http://localhost:10010）
    VITE_API_BASE_URL=http://localhost:10010
    ```
 
-4. **Start development server**
+4. **启动开发服务器**
    ```bash
    yarn dev
-   # or
+   # 或
    npm run dev
    ```
 
-5. **Open your browser**
-   Navigate to `http://localhost:5173`
+5. **打开浏览器**
+   访问 `http://localhost:5173`
 
-### Run with Docker
+### 使用Docker运行
 
-If you prefer running with Docker:
+如果你更倾向于使用 Docker 运行：
 
 ```bash
-git clone https://github.com/LYX9527/what-happen
-cd what-happen/docker
-# If you have docker-compose installed or the docker compose plugin installed
-docker-compose up -d # or docker compose up -d
-# If neither is installed
+git clone https://github.com/sutchan/MyNews/
+cd MyNews/docker
+# 如果你安装了 docker-compose 或 docker 安装了 compose 插件
+docker-compose up -d  # or docker compose up -d
+# 如果两个都没有安装
 docker run -d --name what-happen-app --restart always -p 3001:3000 yltfspace/what-happen
-# Access the app at http://localhost:3001
+# 访问应用 http://localhost:3001
 ```
 
-### Building for Production
+### 生产环境构建
 
 ```bash
-# Build for production
+# 构建生产版本
 yarn build
 
-# Preview production build
+# 预览生产构建
 yarn preview
 ```
 
-## API Requirements
+## API要求
 
-This frontend application requires a backend API service running on port 10010 (configurable). The API should provide:
+本前端应用需要后端API服务运行在10010端口（可配置）。API应提供：
 
-- **GET /platforms** - Available news platforms configuration
-- **GET /news** - News data with platform filtering support
+- **GET /platforms** - 可用新闻平台配置
+- **GET /news** - 支持平台筛选的新闻数据
 
-### Expected API Response Format
+### 预期API响应格式
 
 ```typescript
 interface NewsItem {
@@ -180,7 +180,7 @@ interface NewsItem {
     time?: string
     rank?: number
     thumbnail?: { url: string }
-    // ... additional metadata
+    // ... 其他元数据
   }
 }
 
@@ -191,104 +191,108 @@ interface ApiResponse<T> {
 }
 ```
 
-## Configuration
+## 配置说明
 
-### Environment Variables
+### 环境变量
 
 ```bash
-# API Configuration
-VITE_API_BASE_URL=http://localhost:10010  # Backend API URL
+# API配置
+VITE_API_BASE_URL=http://localhost:10010  # 后端API地址
 ```
 
-### Customizing News Sources
+### 自定义新闻源
 
-Edit `app/pages/dashboard/index.vue` to modify platform configurations:
+编辑 `app/pages/dashboard/index.vue` 修改平台配置：
 
 ```typescript
 const platformIcons = {
   weibo: WeiBo,
   github: Github,
-  // Add your custom platforms
+  // 添加您的自定义平台
 }
 ```
 
-## Development
+## 开发指南
 
-### Project Structure
+### 项目结构
 
 ```
 app/
-├── api/           # API interfaces and configuration
-├── components/    # Reusable Vue components
-│   ├── ui/        # Base UI components
-│   ├── NewsItems/ # News item components
-│   └── icon/      # Platform icon components
-├── composables/   # Vue composition functions
-├── pages/         # Application pages
-├── router/        # Vue Router configuration
-└── lib/           # Utility functions
+├── api/           # API接口和配置
+├── components/    # 可复用Vue组件
+│   ├── ui/        # 基础UI组件
+│   ├── NewsItems/ # 新闻项组件
+│   └── icon/      # 平台图标组件
+├── composables/   # Vue组合式函数
+├── pages/         # 应用页面
+├── router/        # Vue Router配置
+└── lib/           # 工具函数
 ```
 
-### Adding New News Sources
+### 添加新闻源
 
-1. **Create platform icon component** in `app/components/icon/`
-2. **Add platform configuration** in dashboard
-3. **Create custom news item component** if needed in `app/components/NewsItems/`
-4. **Update API integration** in `app/api/news.ts`
+1. **创建平台图标组件** 在 `app/components/icon/` 目录
+2. **添加平台配置** 在dashboard中配置
+3. **创建自定义新闻项组件**（如需要）在 `app/components/NewsItems/`
+4. **更新API集成** 在 `app/api/news.ts` 中配置
 
-### Component Guidelines
+### 组件开发规范
 
-- Use TypeScript for type safety
-- Follow Vue 3 Composition API patterns
-- Implement responsive design with TailwindCSS
-- Maintain consistent styling with existing components
+- 使用TypeScript确保类型安全
+- 遵循Vue 3 Composition API模式
+- 使用TailwindCSS实现响应式设计
+- 保持与现有组件一致的样式风格
 
-## Contributing
+## 贡献指南
 
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
+我们欢迎所有形式的贡献！请查看我们的[贡献指南](CONTRIBUTING.md)了解详情。
 
-### Development Workflow
+### 开发流程
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+1. Fork本仓库
+2. 创建功能分支 (`git checkout -b feature/amazing-feature`)
+3. 提交您的更改 (`git commit -m 'Add some amazing feature'`)
+4. 推送到分支 (`git push origin feature/amazing-feature`)
+5. 创建Pull Request
 
-## License
+## 开源协议
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+本项目采用MIT协议 - 查看[LICENSE](LICENSE)文件了解详情。
 
-## Support
+## 技术支持
 
-- **Issues**: [GitHub Issues](https://github.com/LYX9527/what-happen/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/LYX9527/what-happen/discussions)
+- **问题反馈**: [GitHub Issues](https://github.com/LYX9527/what-happen/issues)
+- **讨论交流**: [GitHub Discussions](https://github.com/LYX9527/what-happen/discussions)
 
-## Acknowledgments
+## 致谢
 
-- Thanks to all the news platforms for providing public APIs
-- Built with love using Vue 3 and modern web technologies
-- Inspired by the need for a unified news reading experience
+- 感谢所有新闻平台提供的公开API
+- 使用Vue 3和现代化Web技术倾情打造
+- 致力于为用户提供统一的新闻阅读体验
 
 ---
 
-## Changelog
+## 更新日志
 
-### Version 1.0.0(Current)
-- Support for 30+ news platforms
-- Responsive design and dark mode
-- Favorites and filtering system
-- Real-time updates
+### 版本 2.0.0 (当前版本)
+- 支持40+新闻平台
+- 响应式设计和暗色模式
+- 收藏和筛选系统
+- 实时更新功能
+- AI总结功能
+- 增强的时间线视图
+- 拖拽排序自定义
+- 支持更多内容类型，包括视频和图片
 
-*For detailed changelog, see [CHANGELOG.md](CHANGELOG.md)*
+*详细更新日志请查看 [CHANGELOG.md](CHANGELOG.md)*
 
 ---
 
 <div align="center">
 
-**Made with ❤️ by the What Happen Team**
+**Made with ❤️ by the 《今日时事》 Team**
 
-*Stay informed, stay connected*
+*保持知情，保持连接*
 
 </div>
 

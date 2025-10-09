@@ -13,10 +13,10 @@
 简体中文 | [English](./README.md)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Vue 3](https://img.shields.io/badge/Vue-3.x-4FC08D.svg)](https://vuejs.org/)
-[![Nuxt4](https://img.shields.io/badge/Nuxt-4.x-00DC82.svg)](https://nuxt.com/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6.svg)](https://www.typescriptlang.org/)
-[![Vite](https://img.shields.io/badge/Vite-6.x-646CFF.svg)](https://vitejs.dev/)
+[![Vue 3](https://img.shields.io/badge/Vue-3.5-4FC08D.svg)](https://vuejs.org/)
+[![Nuxt4](https://img.shields.io/badge/Nuxt-4.0-00DC82.svg)](https://nuxt.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.6-3178C6.svg)](https://www.typescriptlang.org/)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.1-38B2AC.svg)](https://tailwindcss.com/)
 
 </div>
 
@@ -84,30 +84,31 @@
 
 ## 技术栈
 
-- **前端框架**: Nuxt 4 + TypeScript
-- **构建工具**: Vite 6.x
-- **样式方案**: TailwindCSS 4.x
-- **UI组件**: Reka UI (Vue版shadcn/ui)
-- **状态管理**: Vue Composition API + 类Pinia组合式函数
-- **动画效果**: GSAP + TailwindCSS动画
-- **图标库**: Lucide Vue Next
-- **日期处理**: Day.js
-- **拖拽功能**: Vue Draggable Plus
-- **消息通知**: Vue Sonner
+- **前端框架**: Nuxt 4.0 + Vue 3.5 + TypeScript 5.6
+- **构建工具**: Vite (集成在Nuxt中)
+- **样式方案**: TailwindCSS 4.1 + @nuxt/ui
+- **UI组件**: Reka UI + shadcn-nuxt
+- **状态管理**: Vue Composition API
+- **动画效果**: GSAP 3.13 + tw-animate-css
+- **图标库**: Lucide Vue Next 0.536
+- **日期处理**: Day.js 1.11
+- **拖拽功能**: Vue Draggable Plus 0.6
+- **消息通知**: Vue Sonner 2.0
+- **工具库**: @vueuse/core 13.6, clsx, tailwind-merge, class-variance-authority
 
 ## 快速开始
 
 ### 环境要求
 
 - Node.js 18+
-- Yarn 1.22+ (推荐) 或 npm
+- Yarn 1.22+ (项目使用yarn@1.22.22) 或 npm
 
 ### 安装步骤
 
 1. **克隆仓库**
    ```bash
-   git clone https://github.com/LYX9527/what-happen.git
-   cd what-happen
+   git clone https://github.com/sutchan/MyNews.git
+   cd MyNews
    ```
 
 2. **安装依赖**
@@ -141,8 +142,8 @@
 如果你更倾向于使用 Docker 运行：
 
 ```bash
-git clone https://github.com/LYX9527/what-happen
-cd what-happen/docker
+git clone https://github.com/sutchan/MyNews/
+cd MyNews/docker
 # 如果你安装了 docker-compose 或 docker 安装了 compose 插件
 docker-compose up -d  # or docker compose up -d
 # 如果两个都没有安装
@@ -273,11 +274,15 @@ app/
 
 ## 更新日志
 
-### 版本 1.0.0 (当前版本)
-- 支持30+新闻平台
+### 版本 2.0.0 (当前版本)
+- 支持40+新闻平台
 - 响应式设计和暗色模式
 - 收藏和筛选系统
 - 实时更新功能
+- AI总结功能
+- 增强的时间线视图
+- 拖拽排序自定义
+- 支持更多内容类型，包括视频和图片
 
 *详细更新日志请查看 [CHANGELOG.md](CHANGELOG.md)*
 
@@ -289,4 +294,4 @@ app/
 
 *保持知情，保持连接*
 
-</div> 
+</div>
