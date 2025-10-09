@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type {SidebarProps} from '@/components/ui/sidebar'
-import {computed} from 'vue'
+import {computed, ref} from 'vue'
 
 import {
   Home,
@@ -14,11 +14,16 @@ import {
   Clock,
   Heart,
   Bookmark,
-  Star
+  Star,
+  User,
+  LogOut
 } from 'lucide-vue-next'
 
 import {useFavorites} from '@/composables/useFavorites'
+import {useAuth} from '@/composables/useAuth'
 import {NAVIGATION_ITEMS, ROUTE_CONFIGS} from '@/config/platforms'
+
+import LoginDialog from '@/components/LoginDialog.vue'
 
 import TeamSwitcher from "@/components/TeamSwitcher.vue";
 import NavMain from "@/components/NavMain.vue";
@@ -34,6 +39,27 @@ const props = withDefaults(defineProps<AppSidebarProps>(), {
 
 // 收藏功能
 const {newsItemsCount, platformsCount} = useFavorites()
+
+// 认证功能
+const {authState, logout} = useAuth()
+
+// 登录对话框状态
+const isLoginDialogOpen = ref(false)
+
+// 处理登出
+const handleLogout = () => {
+  logout()
+}
+
+// 打开登录对话框
+const openLoginDialog = () => {
+  isLoginDialogOpen.value = true
+}
+
+// 获取当前用户信息
+const currentUser = computed(() => {
+  return authState.value.userInfo || null
+})
 
 
 // 获取路径对应的平台数量
@@ -60,11 +86,6 @@ const iconMap = {
 }
 
 const data = computed(() => ({
-  user: {
-    name: '倚栏听风',
-    email: 'https://github.com/LYX9527',
-    avatar: '/avatars/shadcn.jpg',
-  },
   teams: [
     {
       name: '今 日 时 事',
@@ -122,9 +143,49 @@ const data = computed(() => ({
     <UiSidebarHeader>
       <TeamSwitcher :teams="data.teams"/>
     </UiSidebarHeader>
+    
+    <!-- 用户信息/登录区域 -->
+    <div class="px-4 py-3 border-b">
+      <div v-if="currentUser" class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+            <User class="w-4 h-4" />
+          </div>
+          <div>
+            <div class="text-sm font-medium">{{ currentUser.nickname }}</div>
+            <div class="text-xs text-muted-foreground truncate max-w-[120px]">{{ currentUser.loginType }}</div>
+          </div>
+        </div>
+        <button 
+          @click="handleLogout"
+          class="p-1.5 rounded-md hover:bg-muted transition-colors"
+          aria-label="退出登录"
+        >
+          <LogOut class="w-4 h-4 text-muted-foreground" />
+        </button>
+      </div>
+      <div v-else class="py-2">
+        <button 
+          @click="openLoginDialog"
+          class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+        >
+          <User class="w-4 h-4" />
+          <span>登录</span>
+        </button>
+      </div>
+    </div>
+    
     <UiSidebarContent>
       <NavMain :items="data.navMain"/>
     </UiSidebarContent>
     <UiSidebarRail/>
+    
+    <!-- 登录对话框 -->
+    <LoginDialog 
+      :open="isLoginDialogOpen" 
+      @open-change="(open) => isLoginDialogOpen = open" 
+    >
+      <template #trigger></template>
+    </LoginDialog>
   </UiSidebar>
 </template>
