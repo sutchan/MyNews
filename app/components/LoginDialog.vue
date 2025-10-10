@@ -2,7 +2,6 @@
 import { ref, computed } from 'vue'
 import { 
   Phone, 
-  Wechat, 
   Github, 
   User, 
   Lock, 
@@ -10,13 +9,13 @@ import {
   EyeOff, 
   X 
 } from 'lucide-vue-next'
+import { Weixin } from 'lucide-vue-next'
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { Alert, AlertDescription } from '@/components/ui/alert'
 
 import { useAuth } from '@/composables/useAuth'
 
@@ -196,10 +195,10 @@ const handleLogin = () => {
         
         <div class="py-4">
           <!-- 错误信息 -->
-          <Alert v-if="errorMessage" variant="destructive" class="mb-4">
-            <X class="h-4 w-4" />
-            <AlertDescription>{{ errorMessage }}</AlertDescription>
-          </Alert>
+          <div v-if="errorMessage" class="mb-4 p-3 bg-destructive/10 text-destructive rounded-md flex items-center gap-2">
+            <X class="h-4 w-4 flex-shrink-0" />
+            <span>{{ errorMessage }}</span>
+          </div>
           
           <!-- 登录方式选择 -->
           <Tabs v-model="loginMethod" class="w-full">
@@ -294,12 +293,7 @@ const handleLogin = () => {
             type="button" 
             @click="handleLogin"
             :disabled="isLoggingIn"
-          ></Button>
-        </DialogFooter>
-      </DialogContent>
-    </div>
-  </Dialog>
-</template>
+          >
             {{ isLoggingIn ? '登录中...' : '登录' }}
           </Button>
         </DialogFooter>

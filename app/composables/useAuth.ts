@@ -33,7 +33,7 @@ const authState = ref<AuthState>({
 // 从本地存储加载认证状态 - SSR兼容版本
 const loadAuthState = () => {
   // 只在客户端执行
-  if (process.client) {
+  if (import.meta.client) {
     try {
       const stored = localStorage.getItem(AUTH_STORAGE_KEY)
       if (stored) {
@@ -58,7 +58,7 @@ const loadAuthState = () => {
 // 保存认证状态到本地存储 - SSR兼容版本
 const saveAuthState = () => {
   // 只在客户端执行
-  if (process.client) {
+  if (import.meta.client) {
     try {
       localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(authState.value))
     } catch (error) {
@@ -163,7 +163,7 @@ const logout = () => {
   }
   
   // 清除本地存储
-  if (process.client) {
+  if (import.meta.client) {
     try {
       localStorage.removeItem(AUTH_STORAGE_KEY)
     } catch (error) {
@@ -189,10 +189,24 @@ const getVerificationCode = async (phone: string): Promise<boolean> => {
 }
 
 // 初始化认证状态
-if (process.client) {
+if (import.meta.client) {
   loadAuthState()
 }
 
+// 组合式函数，提供所有认证功能
+export const useAuth = () => {
+  return {
+    authState,
+    loginWithPhone,
+    loginWithWechat,
+    loginWithGitHub,
+    logout,
+    getVerificationCode,
+    loadAuthState
+  }
+}
+
+// 也保持单独导出，方便直接使用
 export { 
   authState,
   loginWithPhone,
