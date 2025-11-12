@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {reactive, computed, onMounted, ref, watch} from 'vue'
+import {useHead} from '@unhead/vue'
 import {
   RefreshCw,
   Globe,

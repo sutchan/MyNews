@@ -12,6 +12,18 @@ import AppSidebar from '@/components/AppSidebar.vue'
 import GlobalSearch from '@/components/GlobalSearch.vue'
 import IntegratedTimeline from '@/components/IntegratedTimeline.vue'
 import ThemeToggle from '@/components/ThemeToggle.vue'
+import AISummary from '@/components/AISummary.vue'
+import RecommendationFeed from '@/components/RecommendationFeed.vue'
+import UiSidebarProvider from '@/components/ui/sidebar/Provider.vue'
+import UiSidebarTrigger from '@/components/ui/sidebar/Trigger.vue'
+import UiSidebarInset from '@/components/ui/sidebar/Inset.vue'
+import UiBreadcrumb from '@/components/ui/breadcrumb/Breadcrumb.vue'
+import UiBreadcrumbList from '@/components/ui/breadcrumb/BreadcrumbList.vue'
+import UiBreadcrumbItem from '@/components/ui/breadcrumb/BreadcrumbItem.vue'
+import UiBreadcrumbLink from '@/components/ui/breadcrumb/BreadcrumbLink.vue'
+import UiSeparator from '@/components/ui/separator/Separator.vue'
+import UiButton from '@/components/ui/button/Button.vue'
+import UiScrollArea from '@/components/ui/scroll-area/ScrollArea.vue'
 
 import type {NewsItem} from "@/api"
 import {fetchNews as apiFetchNews} from "@/api"
@@ -321,6 +333,16 @@ onMounted(async () => {
         <UiScrollArea class="h-full">
           <div class="p-3 sm:p-4">
             <!-- 顶部说明区域移除，改由下方标题区的大图标承担视觉重点 -->
+            
+            <!-- AI摘要卡片 -->
+            <div class="mb-6">
+              <AISummary :expanded="false" :refresh-interval="60000" />
+            </div>
+            
+            <!-- 个性化推荐内容 -->
+            <div class="mb-6">
+              <RecommendationFeed />
+            </div>
 
             <!-- 时间线组件 -->
             <IntegratedTimeline

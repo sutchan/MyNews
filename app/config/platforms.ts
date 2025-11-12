@@ -451,8 +451,9 @@ export const NAVIGATION_ITEMS = [
     {path: '/entertainment', title: '娱乐资讯', icon: 'Music'},
     {path: '/sports', title: '体育赛事', icon: 'Trophy'},
     {path: '/car', title: '汽车资讯', icon: 'Car'},
-    {path: '/favorites-news', title: '收藏新闻', icon: 'Heart'},
-    {path: '/favorites-platforms', title: '收藏平台', icon: 'Bookmark'},
+    {path: '/history', title: '阅读历史', icon: 'Clock'},
+    {path: '/favorites', title: '我的收藏', icon: 'Star'},
+    {path: '/recommendation-settings', title: '推荐设置', icon: 'Settings2'},
 ]
 
 // 根据平台类型映射对应的新闻项组件

@@ -1,23 +1,22 @@
 <script setup lang="ts">
-import type { AccordionItemProps } from "reka-ui"
 import type { HTMLAttributes } from "vue"
-import { reactiveOmit } from "@vueuse/core"
-import { AccordionItem, useForwardProps } from "reka-ui"
 import { cn } from "@/lib/utils"
+import { AccordionItem as RekaAccordionItem } from "reka-ui"
 
-const props = defineProps<AccordionItemProps & { class?: HTMLAttributes["class"] }>()
-
-const delegatedProps = reactiveOmit(props, "class")
-
-const forwardedProps = useForwardProps(delegatedProps)
+// 直接定义所需的props，避免类型继承问题
+const props = defineProps<{
+  value: string
+  disabled?: boolean
+  class?: HTMLAttributes["class"]
+}>()
 </script>
 
 <template>
-  <AccordionItem
+  <RekaAccordionItem
     data-slot="accordion-item"
-    v-bind="forwardedProps"
+    v-bind="{ value: props.value, disabled: props.disabled }"
     :class="cn('border-b last:border-b-0', props.class)"
   >
     <slot />
-  </AccordionItem>
+  </RekaAccordionItem>
 </template>
