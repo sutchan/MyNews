@@ -10,8 +10,6 @@ export default defineNuxtPlugin(() => {
     }
   }
 
-  // 只在客户端添加监听器
-  if (process.client) {
-    document.addEventListener('keydown', handleGlobalKeydown)
-  }
+  // 添加全局键盘事件监听器
+  document.addEventListener('keydown', handleGlobalKeydown)
 }) 

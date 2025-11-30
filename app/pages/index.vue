@@ -98,7 +98,7 @@ const globalSearchRef = ref()
 
 // 检测是否为Mac平台 - SSR兼容版本
 const isMac = computed(() => {
-  if (process.server) {
+  if (import.meta.server) {
     return false
   }
   try {
@@ -153,7 +153,7 @@ const flushNow = () => {
 const scheduleFlush = () => {
   if (flushScheduled) return
   flushScheduled = true
-  if (process.client && typeof window !== 'undefined' && typeof window.requestAnimationFrame === 'function') {
+  if (import.meta.client && typeof window !== 'undefined' && typeof window.requestAnimationFrame === 'function') {
     window.requestAnimationFrame(flushNow)
   } else {
     setTimeout(flushNow, 16)
@@ -205,8 +205,8 @@ const fetchAllPlatformsData = async () => {
 
 // 处理新闻点击
 const handleNewsClick = (item: NewsItem) => {
-  if (process.client && typeof window !== 'undefined') {
-    window.open(item.url, '_blank')
+  if (import.meta.client && typeof window !== 'undefined') {
+    window.open(item.url, '_blank', 'noopener,noreferrer')
   }
 }
 
@@ -217,7 +217,7 @@ const refreshAllData = () => {
 
 // 处理外部链接打开 - SSR兼容版本
 const openLink = () => {
-  if (process.client && typeof window !== 'undefined') {
+  if (import.meta.client && typeof window !== 'undefined') {
     window.open('https://github.com/LYX9527/what-happen', '_blank')
   }
 }
@@ -243,7 +243,7 @@ const searchPlatforms = ref(platformConfigs.map(config => ({
 // SSR兼容的数据初始化
 onMounted(async () => {
   // 在客户端水合后加载数据
-  if (process.client) {
+  if (import.meta.client) {
     setTimeout(() => {
       fetchAllPlatformsData()
     }, 100)

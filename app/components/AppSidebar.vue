@@ -107,7 +107,7 @@ const data = computed(() => ({
         ...baseItem,
         badge: computed(() => {
           // 在服务端渲染时始终返回 undefined 以避免 hydration 不匹配
-          if (process.server) return undefined
+          if (import.meta.server) return undefined
           const totalCount = newsItemsCount.value + platformsCount.value
           return totalCount > 0 ? totalCount.toString() : undefined
         })

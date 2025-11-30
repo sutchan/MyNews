@@ -18,7 +18,9 @@ function debounce<T extends (...args: any[]) => any>(func: T, delay: number) {
   return (...args: Parameters<T>): Promise<ReturnType<T>> => {
     return new Promise((resolve) => {
       clearTimeout(timeoutId)
-      timeoutId = setTimeout(() => resolve(func(...args)), delay)
+      timeoutId = setTimeout(() => {
+        resolve(func(...args))
+      }, delay)
     })
   }
 }
@@ -28,7 +30,7 @@ function debounce<T extends (...args: any[]) => any>(func: T, delay: number) {
  * 提供推荐内容加载、用户兴趣管理、配置管理等功能
  */
 export function useRecommendations() {
-  const { user } = useAuth()
+  const { authState } = useAuth()
   
   // 用户兴趣数据 - 使用localStorage持久化存储
   const userInterests = useLocalStorage<UserInterest[]>('user-interests', [])
@@ -91,7 +93,7 @@ export function useRecommendations() {
       
       // 调用API获取推荐数据
       const data = await fetchRecommendations(
-        user.value?.id || '',
+        authState.value.userInfo?.id || '',
         mergedConfig
       )
       
@@ -185,11 +187,11 @@ export function useRecommendations() {
     newsItem: NewsItem,
     interactionType: 'view' | 'like' | 'dislike' | 'share' | 'comment'
   ) => {
-    if (!user.value?.id) return null
+    if (!authState.value.userInfo?.id) return null
     
     try {
       const updatedInterests = await updateUserInterests(
-        user.value.id,
+        authState.value.userInfo.id,
         newsItem,
         interactionType
       )
@@ -199,9 +201,6 @@ export function useRecommendations() {
         ...interest,
         lastInteracted: interest.lastInteracted || Date.now()
       }))
-      
-      // 保存到本地存储
-      saveUserInterestsToLocalStorage()
       
       return updatedInterests
     } catch (err) {
@@ -215,7 +214,7 @@ export function useRecommendations() {
     newsItemOrId: NewsItem | string,
     interactionType: 'view' | 'like' | 'dislike' | 'share' | 'comment'
   ) => {
-    if (!user.value?.id) {
+    if (!authState.value.userInfo?.id) {
       console.warn('无法记录交互：用户未登录')
       return false
     }
@@ -256,12 +255,12 @@ export function useRecommendations() {
   
   // 刷新用户兴趣数据
   const refreshUserInterests = async () => {
-    if (!user.value?.id) {
+    if (!authState.value.userInfo?.id) {
       return
     }
     
     try {
-      const interests = await fetchUserInterests(user.value.id)
+      const interests = await fetchUserInterests(authState.value.userInfo.id)
       // 确保每个兴趣有lastInteracted字段以兼容测试
       userInterests.value = interests.map(interest => ({
         ...interest,
@@ -291,9 +290,6 @@ export function useRecommendations() {
         lastInteracted: now.getTime()
       })
     }
-    
-    // 保存到本地存储
-    saveUserInterestsToLocalStorage()
   }
   
   // 移除用户兴趣标签
@@ -301,20 +297,10 @@ export function useRecommendations() {
     const index = userInterests.value.findIndex(interest => interest.tag === tag)
     if (index >= 0) {
       userInterests.value.splice(index, 1)
-      saveUserInterestsToLocalStorage()
     }
   }
   
-  // 将用户兴趣保存到本地存储
-  const saveUserInterestsToLocalStorage = () => {
-    try {
-      if (user.value?.id && typeof localStorage !== 'undefined') {
-        localStorage.setItem(`user_interests_${user.value.id}`, JSON.stringify(userInterests.value))
-      }
-    } catch (err) {
-      console.error('保存用户兴趣到本地存储失败:', err)
-    }
-  }
+
   
   // 计算属性：兴趣标签云（用于UI展示）
   const interestTags = computed(() => {
@@ -355,7 +341,7 @@ export function useRecommendations() {
   })
   
   // 监听用户变化，刷新兴趣数据
-  watch(() => user.value?.id, (newUserId, oldUserId) => {
+  watch(() => authState.value.userInfo?.id, (newUserId, oldUserId) => {
     if (newUserId && newUserId !== oldUserId) {
       refreshUserInterests()
       // 如果用户登录状态改变，重新获取推荐

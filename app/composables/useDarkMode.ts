@@ -6,7 +6,7 @@ export function useDarkMode() {
   // 检查本地存储或系统偏好 - SSR兼容版本
   const getInitialMode = (): boolean => {
     // 在服务端渲染时，默认返回false (浅色模式)
-    if (process.server) {
+    if (import.meta.server) {
       return false
     }
     
@@ -29,7 +29,7 @@ export function useDarkMode() {
   // 应用主题 - SSR兼容版本
   const applyTheme = (dark: boolean) => {
     // 只在客户端执行DOM操作
-    if (process.client) {
+    if (import.meta.client) {
       try {
         if (dark) {
           document.documentElement.classList.add('dark')

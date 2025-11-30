@@ -13,6 +13,17 @@ export interface NewsItem {
     id: string
     title: string
     url: string
+    content?: string
+    source?: string
+    publishedAt?: string
+    image?: string
+    platform?: string
+    tags?: string[]
+    engagement?: {
+        readCount: number
+        commentCount: number
+        shareCount: number
+    }
     extra?: {
         info?: string
         hover?: string

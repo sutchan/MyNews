@@ -1,6 +1,8 @@
 import { ref, computed, onMounted } from 'vue'
 import { useGlobalToast } from './useToast'
-import type { NewsItem } from '@/api'
+import { useAuth } from './useAuth'
+import type { NewsItem } from '@/api/news'
+import { API_CONFIG, API_ENDPOINTS, type ApiResponse } from '@/api/config'
 
 // 收藏项类型，包含额外的元数据
 export interface FavoriteItem extends NewsItem {
@@ -27,10 +29,13 @@ const FAVORITES_STORAGE_KEY = 'news-favorites'
 // 收藏列表
 const favorites = ref<FavoriteEntry[]>([])
 
+// 加载状态
+const isLoading = ref(false)
+
 // 从本地存储加载收藏 - SSR兼容版本
 const loadFavorites = () => {
   // 只在客户端执行
-  if (process.client) {
+  if (import.meta.client) {
     try {
       const stored = localStorage.getItem(FAVORITES_STORAGE_KEY)
       if (stored) {
@@ -39,7 +44,6 @@ const loadFavorites = () => {
     } catch (err) {
       console.error('加载收藏失败:', err)
       favorites.value = []
-      error && error('加载收藏失败')
     }
   }
 }
@@ -47,13 +51,47 @@ const loadFavorites = () => {
 // 保存收藏到本地存储 - SSR兼容版本
 const saveFavorites = () => {
   // 只在客户端执行
-  if (process.client) {
+  if (import.meta.client) {
     try {
       localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favorites.value))
     } catch (err) {
       console.error('保存收藏失败:', err)
-      error && error('保存收藏失败')
     }
+  }
+}
+
+// 从服务器获取收藏列表
+const fetchFavoritesFromServer = async () => {
+  const { authState } = useAuth()
+  if (!authState.value.isLoggedIn || !authState.value.token) {
+    return
+  }
+  
+  isLoading.value = true
+  
+  try {
+    const response = await fetch(`${API_CONFIG.baseURL}${API_ENDPOINTS.userFavorites}`, {
+      headers: {
+        'Authorization': `Bearer ${authState.value.token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+    
+    const result: ApiResponse<FavoriteEntry[]> = await response.json()
+    if (result.code === 200 && result.data) {
+      favorites.value = result.data
+      saveFavorites()
+    }
+  } catch (err) {
+    console.error('从服务器获取收藏失败:', err)
+    // 失败时使用本地存储数据
+    loadFavorites()
+  } finally {
+    isLoading.value = false
   }
 }
 
@@ -63,14 +101,49 @@ const getDateString = (timestamp: number): string => {
   return date.toISOString().split('T')[0]
 }
 
-export function useFavorites() {
-  // 在客户端初始化时加载收藏数据
-  onMounted(() => {
-    loadFavorites()
+// 通用请求函数
+const request = async <T>(url: string, options?: RequestInit): Promise<T> => {
+  const { authState } = useAuth()
+  const headers = {
+    'Content-Type': 'application/json',
+    ...options?.headers,
+  }
+  
+  if (authState.value.token) {
+    headers['Authorization'] = `Bearer ${authState.value.token}`
+  }
+  
+  const response = await fetch(url, {
+    ...options,
+    headers,
   })
   
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`)
+  }
+  
+  const result: ApiResponse<T> = await response.json()
+  
+  if (result.code === 200) {
+    return result.data
+  } else {
+    throw new Error(result.msg || '请求失败')
+  }
+}
+
+export function useFavorites() {
   // 使用全局通知服务
   const { info, success, error } = useGlobalToast()
+  const { authState } = useAuth()
+
+  // 在客户端初始化时加载收藏数据
+  onMounted(() => {
+    if (authState.value.isLoggedIn) {
+      fetchFavoritesFromServer()
+    } else {
+      loadFavorites()
+    }
+  })
 
   // 收藏数量
   const favoritesCount = computed(() => favorites.value.length)
@@ -79,8 +152,15 @@ export function useFavorites() {
   const isFavorited = (item: NewsItem) => {
     return favorites.value.some(fav => 
       fav.type === 'single' && 
-      (fav as FavoriteItem).id === item.id && 
-      (fav as FavoriteItem).url === item.url
+      (fav as FavoriteItem).id === item.id
+    )
+  }
+
+  // 通过ID检查单条新闻是否已收藏
+  const isFavorite = async (id: string) => {
+    return favorites.value.some(fav => 
+      fav.type === 'single' && 
+      (fav as FavoriteItem).id === id
     )
   }
 
@@ -92,7 +172,7 @@ export function useFavorites() {
   }
 
   // 添加到收藏
-  const addToFavorites = (item: NewsItem, platform: string, platformTitle: string) => {
+  const addToFavorites = async (item: NewsItem, platform: string = '', platformTitle: string = '') => {
     if (isFavorited(item)) {
       info && info('该文章已在收藏列表中')
       return false // 已经收藏过了
@@ -106,22 +186,82 @@ export function useFavorites() {
       type: 'single'
     }
 
+    // 更新本地状态
     favorites.value.unshift(favoriteItem) // 添加到开头
     saveFavorites()
+    
+    // 如果已登录，同步到服务器
+    if (authState.value.isLoggedIn) {
+      try {
+        await request(`${API_CONFIG.baseURL}${API_ENDPOINTS.addFavorite}`, {
+          method: 'POST',
+          body: JSON.stringify(favoriteItem)
+        })
+      } catch (err) {
+        console.error('同步收藏到服务器失败:', err)
+        // 同步失败时不影响本地状态
+      }
+    }
+    
     success && success('收藏成功')
     return true
   }
 
   // 从收藏中移除单条新闻
-  const removeFromFavorites = (item: NewsItem) => {
+  const removeFromFavorites = async (item: NewsItem) => {
     const index = favorites.value.findIndex(fav => 
       fav.type === 'single' && 
-      (fav as FavoriteItem).id === item.id && 
-      (fav as FavoriteItem).url === item.url
+      (fav as FavoriteItem).id === item.id
     )
+    
     if (index > -1) {
+      // 更新本地状态
       favorites.value.splice(index, 1)
       saveFavorites()
+      
+      // 如果已登录，同步到服务器
+      if (authState.value.isLoggedIn) {
+        try {
+          await request(`${API_CONFIG.baseURL}${API_ENDPOINTS.removeFavorite}`, {
+            method: 'DELETE',
+            body: JSON.stringify({ id: item.id })
+          })
+        } catch (err) {
+          console.error('从服务器移除收藏失败:', err)
+          // 同步失败时不影响本地状态
+        }
+      }
+      
+      info && info('已从收藏中移除')
+      return true
+    }
+    return false
+  }
+
+  // 通过ID移除收藏
+  const removeFavorite = async (id: string) => {
+    const index = favorites.value.findIndex(fav => 
+      fav.type === 'single' && 
+      (fav as FavoriteItem).id === id
+    )
+    
+    if (index > -1) {
+      // 更新本地状态
+      favorites.value.splice(index, 1)
+      saveFavorites()
+      
+      // 如果已登录，同步到服务器
+      if (authState.value.isLoggedIn) {
+        try {
+          await request(`${API_CONFIG.baseURL}${API_ENDPOINTS.removeFavorite}`, {
+            method: 'DELETE',
+            body: JSON.stringify({ id })
+          })
+        } catch (err) {
+          console.error('从服务器移除收藏失败:', err)
+        }
+      }
+      
       info && info('已从收藏中移除')
       return true
     }
@@ -129,7 +269,7 @@ export function useFavorites() {
   }
 
   // 添加平台到收藏
-  const addPlatformToFavorites = (platform: string, platformTitle: string) => {
+  const addPlatformToFavorites = async (platform: string, platformTitle: string) => {
     if (isPlatformFavorited(platform)) {
       return false // 已经收藏过了
     }
@@ -141,34 +281,63 @@ export function useFavorites() {
       type: 'platform'
     }
 
+    // 更新本地状态
     favorites.value.unshift(favoritePlatform) // 添加到开头
     saveFavorites()
+    
+    // 如果已登录，同步到服务器
+    if (authState.value.isLoggedIn) {
+      try {
+        await request(`${API_CONFIG.baseURL}${API_ENDPOINTS.addFavorite}`, {
+          method: 'POST',
+          body: JSON.stringify(favoritePlatform)
+        })
+      } catch (err) {
+        console.error('同步平台收藏到服务器失败:', err)
+      }
+    }
+    
     return true
   }
 
   // 从收藏中移除平台
-  const removePlatformFromFavorites = (platform: string) => {
+  const removePlatformFromFavorites = async (platform: string) => {
     const index = favorites.value.findIndex(fav => 
       fav.type === 'platform' && fav.platform === platform
     )
+    
     if (index > -1) {
+      // 更新本地状态
       favorites.value.splice(index, 1)
       saveFavorites()
+      
+      // 如果已登录，同步到服务器
+      if (authState.value.isLoggedIn) {
+        try {
+          await request(`${API_CONFIG.baseURL}${API_ENDPOINTS.removeFavorite}`, {
+            method: 'DELETE',
+            body: JSON.stringify({ platform })
+          })
+        } catch (err) {
+          console.error('从服务器移除平台收藏失败:', err)
+        }
+      }
+      
       return true
     }
     return false
   }
 
   // 切换平台收藏状态
-  const togglePlatformFavorite = (platform: string, platformTitle: string) => {
+  const togglePlatformFavorite = async (platform: string, platformTitle: string) => {
     if (isPlatformFavorited(platform)) {
-      const result = removePlatformFromFavorites(platform)
+      const result = await removePlatformFromFavorites(platform)
       if (result) {
         info && info(`已取消收藏平台: ${platformTitle}`)
       }
       return result
     } else {
-      const result = addPlatformToFavorites(platform, platformTitle)
+      const result = await addPlatformToFavorites(platform, platformTitle)
       if (result) {
         success && success(`已收藏平台: ${platformTitle}`)
       }
@@ -177,18 +346,31 @@ export function useFavorites() {
   }
 
   // 切换收藏状态 - 已通过addToFavorites和removeFromFavorites包含通知
-  const toggleFavorite = (item: NewsItem, platform: string, platformTitle: string) => {
+  const toggleFavorite = async (item: NewsItem, platform: string = '', platformTitle: string = '') => {
     if (isFavorited(item)) {
-      return removeFromFavorites(item)
+      return await removeFromFavorites(item)
     } else {
-      return addToFavorites(item, platform, platformTitle)
+      return await addToFavorites(item, platform, platformTitle)
     }
   }
 
   // 清空收藏
-  const clearFavorites = () => {
+  const clearFavorites = async () => {
+    // 更新本地状态
     favorites.value = []
     saveFavorites()
+    
+    // 如果已登录，同步到服务器
+    if (authState.value.isLoggedIn) {
+      try {
+        await request(`${API_CONFIG.baseURL}${API_ENDPOINTS.userFavorites}`, {
+          method: 'DELETE'
+        })
+      } catch (err) {
+        console.error('清空服务器收藏失败:', err)
+      }
+    }
+    
     success && success('收藏已清空')
   }
 
@@ -231,7 +413,7 @@ export function useFavorites() {
         const newsItem = item as FavoriteItem
         return (
           newsItem.title.toLowerCase().includes(lowerQuery) ||
-          newsItem.description?.toLowerCase().includes(lowerQuery) ||
+          newsItem.content?.toLowerCase().includes(lowerQuery) ||
           newsItem.platformTitle.toLowerCase().includes(lowerQuery)
         )
       } else {
@@ -269,7 +451,7 @@ export function useFavorites() {
   }
 
   // 批量删除收藏项
-  const removeMultipleFavorites = (itemIds: string[]): number => {
+  const removeMultipleFavorites = async (itemIds: string[]): number => {
     let removedCount = 0
     
     // 从后往前删除，避免索引变化问题
@@ -286,6 +468,19 @@ export function useFavorites() {
     
     if (removedCount > 0) {
       saveFavorites()
+      
+      // 如果已登录，同步到服务器
+      if (authState.value.isLoggedIn) {
+        try {
+          await request(`${API_CONFIG.baseURL}${API_ENDPOINTS.removeFavorite}`, {
+            method: 'DELETE',
+            body: JSON.stringify({ ids: itemIds })
+          })
+        } catch (err) {
+          console.error('批量移除收藏失败:', err)
+        }
+      }
+      
       success && success(`已移除 ${removedCount} 个收藏`)
     }
     
@@ -316,7 +511,7 @@ export function useFavorites() {
   }
 
   // 通过ID删除收藏项
-  const removeFavoriteById = (id: string): boolean => {
+  const removeFavoriteById = async (id: string): boolean => {
     const index = favorites.value.findIndex(item => {
       if (item.type === 'single') {
         return (item as FavoriteItem).id === id
@@ -326,8 +521,22 @@ export function useFavorites() {
     })
     
     if (index > -1) {
+      // 更新本地状态
       favorites.value.splice(index, 1)
       saveFavorites()
+      
+      // 如果已登录，同步到服务器
+      if (authState.value.isLoggedIn) {
+        try {
+          await request(`${API_CONFIG.baseURL}${API_ENDPOINTS.removeFavorite}`, {
+            method: 'DELETE',
+            body: JSON.stringify({ id })
+          })
+        } catch (err) {
+          console.error('从服务器移除收藏失败:', err)
+        }
+      }
+      
       return true
     }
     return false
@@ -352,18 +561,28 @@ export function useFavorites() {
     return grouped
   }
 
+  // 刷新收藏列表
+  const refreshFavorites = async () => {
+    if (authState.value.isLoggedIn) {
+      await fetchFavoritesFromServer()
+    }
+  }
+
   return {
     // 基础数据和状态
     favorites,
     favoritesCount,
+    isLoading,
     
     // 单条新闻收藏相关
     newsItems: getNewsItems,
     newsItemsCount,
     isFavorited,
+    isFavorite,
     addToFavorites,
     removeFromFavorites,
     toggleFavorite,
+    removeFavorite,
     
     // 平台收藏相关
     platforms: getPlatforms,
@@ -382,6 +601,7 @@ export function useFavorites() {
     removeMultipleFavorites,
     getFavoriteId,
     getFavoriteById,
-    removeFavoriteById
+    removeFavoriteById,
+    refreshFavorites
   }
 }

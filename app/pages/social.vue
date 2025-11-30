@@ -40,7 +40,7 @@ const globalSearchRef = ref()
 const aiSummaryOpen = ref(false)
 
 const isMac = computed(() => {
-  if (process.server) return false
+  if (import.meta.server) return false
   try {
     return typeof navigator !== 'undefined' && navigator.platform && navigator.platform.toLowerCase().includes('mac')
   } catch (error) {
@@ -56,7 +56,7 @@ const defaultPlatforms = platformConfigs.map(config => ({
 
 // 加载已保存的排序 - SSR兼容版本
 const loadSavedOrder = () => {
-  if (process.server) {
+  if (import.meta.server) {
     return [...defaultPlatforms]
   }
 
@@ -89,7 +89,7 @@ const loadSavedOrder = () => {
 
 // 保存排序 - SSR兼容版本
 const saveOrder = (platforms: typeof defaultPlatforms) => {
-  if (process.client) {
+  if (import.meta.client) {
     try {
       const order = platforms.map(p => p.platform)
       localStorage.setItem('platform-orders-social', JSON.stringify(order))
@@ -155,13 +155,14 @@ const refreshAllData = () => fetchAllPlatformsData()
 const refreshSinglePlatform = (platform: string) => fetchPlatformData(platform, new Date().getTime())
 
 const handleCardItemClick = (item: NewsItem) => {
-  if (process.client && typeof window !== 'undefined') {
+  if (import.meta.client && typeof window !== 'undefined') {
     window.open(item.url, '_blank')
   }
 }
 
+
 const openLink = () => {
-  if (process.client && typeof window !== 'undefined') {
+  if (import.meta.client && typeof window !== 'undefined') {
     window.open('https://github.com/LYX9527/what-happen', '_blank')
   }
 }
@@ -185,7 +186,7 @@ const onDragEnd = () => {
 }
 
 onMounted(async () => {
-  if (process.client) {
+  if (import.meta.client) {
     setTimeout(() => fetchAllPlatformsData(), 100)
   }
 })

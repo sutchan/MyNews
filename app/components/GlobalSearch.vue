@@ -45,7 +45,7 @@ const selectedIndex = ref(0)
 // 检测是否为Mac平台 - SSR兼容版本
 const isMac = computed(() => {
   // 服务端渲染时默认返回false
-  if (process.server) {
+  if (import.meta.server) {
     return false
   }
   try {
@@ -163,34 +163,34 @@ const handleKeydown = (e: KeyboardEvent) => {
 }
 
 // 处理选择项目
-const handleSelect = (item: any) => {
-  if (item.type === 'platform') {
-    // 跳转到平台筛选
-    const filterMap: Record<string, string> = {
-      weibo: 'weibo',
-      baidu: 'baidu',
-      github: 'github',
-      zhihu: 'zhihu'
+  const handleSelect = (item: any) => {
+    if (item.type === 'platform') {
+      // 跳转到平台筛选
+      const filterMap: Record<string, string> = {
+        weibo: 'weibo',
+        baidu: 'baidu',
+        github: 'github',
+        zhihu: 'zhihu'
+      }
+
+      const filter = filterMap[item.platform] || 'all'
+      emit('filter-change', filter)
+
+      // 更新URL
+      router.push({
+        query: {filter: filter === 'all' ? undefined : filter}
+      })
+    } else if (item.type === 'news') {
+      // 打开新闻链接
+      emit('news-click', item)
+      if (import.meta.client && typeof window !== 'undefined') {
+        window.open(item.url, '_blank', 'noopener,noreferrer')
+      }
     }
 
-    const filter = filterMap[item.platform] || 'all'
-    emit('filter-change', filter)
-
-    // 更新URL
-    router.push({
-      query: {filter: filter === 'all' ? undefined : filter}
-    })
-  } else if (item.type === 'news') {
-    // 打开新闻链接
-    emit('news-click', item)
-    if (process.client && typeof window !== 'undefined') {
-      window.open(item.url, '_blank')
-    }
+    open.value = false
+    search.value = ''
   }
-
-  open.value = false
-  search.value = ''
-}
 
 // 处理对话框状态变化
 const handleOpenChange = (isOpen: boolean) => {
@@ -203,13 +203,13 @@ const handleOpenChange = (isOpen: boolean) => {
 
 // 生命周期 - SSR兼容版本
 onMounted(() => {
-  if (process.client && typeof document !== 'undefined') {
+  if (import.meta.client && typeof document !== 'undefined') {
     document.addEventListener('keydown', handleKeydown)
   }
 })
 
 onUnmounted(() => {
-  if (process.client && typeof document !== 'undefined') {
+  if (import.meta.client && typeof document !== 'undefined') {
     document.removeEventListener('keydown', handleKeydown)
   }
 })

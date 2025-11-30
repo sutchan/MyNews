@@ -272,7 +272,7 @@ const isLoading = computed(() => {
 // 全局刷新提示（非阻塞）：加载开始显示，结束后更新为已完成
 const LOADING_TOAST_ID = 'global-refresh'
 watch(isLoading, (val) => {
-  if (!process.client) return
+  if (!import.meta.client) return
   if (val) {
     toast.loading('正在刷新数据…', { id: LOADING_TOAST_ID })
   } else {

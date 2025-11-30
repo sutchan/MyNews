@@ -52,7 +52,7 @@ const aiSummaryOpen = ref(false)
 
 // 检测是否为Mac平台 - SSR兼容版本
 const isMac = computed(() => {
-  if (process.server) {
+  if (import.meta.server) {
     return false
   }
   try {
@@ -72,7 +72,7 @@ const defaultPlatforms = platformConfigs.map(config => ({
 
 // 加载已保存的排序 - SSR兼容版本
 const loadSavedOrder = () => {
-  if (process.server) {
+  if (import.meta.server) {
     return [...defaultPlatforms]
   }
 
@@ -105,7 +105,7 @@ const loadSavedOrder = () => {
 
 // 保存排序 - SSR兼容版本
 const saveOrder = (platforms: typeof defaultPlatforms) => {
-  if (process.client) {
+  if (import.meta.client) {
     try {
       const order = platforms.map(p => p.platform)
       localStorage.setItem('platform-orders-hot', JSON.stringify(order))
@@ -191,7 +191,7 @@ const refreshSinglePlatform = (platform: string) => {
 
 // 处理卡片点击 - SSR兼容版本
 const handleCardItemClick = (item: NewsItem) => {
-  if (process.client && typeof window !== 'undefined') {
+  if (import.meta.client && typeof window !== 'undefined') {
     window.open(item.url, '_blank')
   }
 }
@@ -199,7 +199,7 @@ const handleCardItemClick = (item: NewsItem) => {
 
 // 处理外部链接打开 - SSR兼容版本
 const openLink = () => {
-  if (process.client && typeof window !== 'undefined') {
+  if (import.meta.client && typeof window !== 'undefined') {
     window.open('https://github.com/LYX9527/what-happen', '_blank')
   }
 }
@@ -226,7 +226,7 @@ const onDragEnd = () => {
 // SSR兼容的数据初始化
 onMounted(async () => {
   // 在客户端水合后加载数据
-  if (process.client) {
+  if (import.meta.client) {
     await fetchAllPlatformsData()
   }
 })

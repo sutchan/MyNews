@@ -41,7 +41,7 @@ const globalSearchRef = ref()
 
 // 检测是否为Mac平台 - SSR兼容版本
 const isMac = computed(() => {
-  if (process.server) {
+  if (import.meta.server) {
     return false
   }
   try {
@@ -99,13 +99,13 @@ const refreshSinglePlatform = (platform: string) => {
 
 // 处理卡片点击 - SSR兼容版本
 const handleCardItemClick = (item: NewsItem) => {
-  if (process.client && typeof window !== 'undefined') {
+  if (import.meta.client && typeof window !== 'undefined') {
     window.open(item.url, '_blank')
   }
 }
 // 处理外部链接打开 - SSR兼容版本
 const openLink = () => {
-  if (process.client && typeof window !== 'undefined') {
+  if (import.meta.client && typeof window !== 'undefined') {
     window.open('https://github.com/LYX9527/what-happen', '_blank')
   }
 }
