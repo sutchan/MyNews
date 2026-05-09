@@ -1,3 +1,4 @@
+// app/composables/useHistory.ts v2.0.0
 // 用户阅读历史相关的组合式函数
 
 import { ref, computed, onMounted } from 'vue'

@@ -1,3 +1,4 @@
+// app/components/NewsItems/index.ts v2.0.0
 // 新闻项组件
 import {NewsItemComponents} from "~/config/platforms";
 

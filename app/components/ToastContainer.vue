@@ -1,3 +1,4 @@
+<!-- app/components/ToastContainer.vue v2.0.0 -->
 <script setup lang="ts">
 import { useGlobalToast } from '../composables/useToast'
 import { defineProps } from 'vue'

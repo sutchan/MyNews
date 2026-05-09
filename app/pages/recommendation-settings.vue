@@ -1,3 +1,4 @@
+<!-- app/pages/recommendation-settings.vue v2.0.0 -->
 <template>
   <UiSidebarProvider>
     <AppSidebar/>

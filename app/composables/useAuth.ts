@@ -1,3 +1,4 @@
+// app/composables/useAuth.ts v2.0.0
 // 用户认证相关的组合式函数
 
 import { ref, computed } from 'vue'

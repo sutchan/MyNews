@@ -1,3 +1,4 @@
+<!-- app/components/NavMain.vue v2.0.0 -->
 <script setup lang="ts">
 import {type LucideIcon} from 'lucide-vue-next'
 import {type ComputedRef} from 'vue'

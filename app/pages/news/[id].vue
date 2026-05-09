@@ -1,3 +1,4 @@
+<!-- app/pages/news/[id].vue v2.0.0 -->
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'

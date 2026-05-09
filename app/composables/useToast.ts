@@ -1,3 +1,4 @@
+// app/composables/useToast.ts v2.0.0
 import { ref, computed } from 'vue'
 
 // 通知类型

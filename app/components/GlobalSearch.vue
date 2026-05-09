@@ -1,3 +1,4 @@
+<!-- app/components/GlobalSearch.vue v2.0.0 -->
 <script setup lang="ts">
 import {computed, onMounted, onUnmounted, ref} from 'vue'
 import {useRouter} from 'vue-router'

@@ -1,3 +1,4 @@
+// app/composables/useRecommendations.ts v2.0.0
 import { ref, computed, onMounted, watch } from 'vue'
 import { useAuth } from './useAuth'
 import {

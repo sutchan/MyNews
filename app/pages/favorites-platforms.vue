@@ -1,3 +1,4 @@
+<!-- app/pages/favorites-platforms.vue v2.0.0 -->
 <script setup lang="ts">
 import {reactive, computed, onMounted, ref, watch} from 'vue'
 import {useHead} from '@unhead/vue'

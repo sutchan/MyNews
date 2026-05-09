@@ -1,3 +1,4 @@
+// app/api/recommendation.ts v2.0.0
 import {API_CONFIG, type ApiResponse} from './config'
 import type {NewsItem} from './news'
 

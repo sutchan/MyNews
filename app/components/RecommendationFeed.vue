@@ -1,3 +1,4 @@
+<!-- app/components/RecommendationFeed.vue v2.0.0 -->
 <template>
   <div class="recommendation-feed">
     <!-- 推荐说明区域 -->

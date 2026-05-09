@@ -1,3 +1,4 @@
+// app/config/platforms.ts v2.0.0
 // 平台配置文件
 import {
     WeiBo, Baidu, DouYin, ThePaper, TouTiao, _36kr, Blbl, CankaoXiaoxi,

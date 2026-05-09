@@ -1,3 +1,4 @@
+// app/composables/useDarkMode.ts v2.0.0
 import { ref, onMounted, watch } from 'vue'
 
 export function useDarkMode() {

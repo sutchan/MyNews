@@ -1,3 +1,4 @@
+// app/components/ui/sheet/index.ts v2.0.0
 export { default as Sheet } from './Sheet.vue'
 export { default as SheetClose } from './SheetClose.vue'
 export { default as SheetContent } from './SheetContent.vue'

@@ -1,3 +1,4 @@
+<!-- app/pages/favorites.vue v2.0.0 -->
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from 'vue'
 import { Calendar, Search, Trash2, Filter, X, Star, Platform, ChevronDown, ChevronUp, ExternalLink, Bookmark } from 'lucide-vue-next'

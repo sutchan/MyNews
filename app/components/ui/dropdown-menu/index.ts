@@ -1,3 +1,4 @@
+// app/components/ui/dropdown-menu/index.ts v2.0.0
 export { default as DropdownMenu } from './DropdownMenu.vue'
 
 export { default as DropdownMenuCheckboxItem } from './DropdownMenuCheckboxItem.vue'

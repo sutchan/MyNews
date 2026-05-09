@@ -1,3 +1,4 @@
+<!-- app/components/FinanceNewsContent.vue v2.0.0 -->
 <script setup lang="ts">
 import {TrendingUp, TrendingDown} from 'lucide-vue-next'
 import type {NewsItem} from '@/api'

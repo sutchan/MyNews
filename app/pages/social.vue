@@ -1,3 +1,4 @@
+<!-- app/pages/social.vue v2.0.0 -->
 <script setup lang="ts">
 import {reactive, computed, onMounted, ref} from 'vue'
 import {VueDraggable} from 'vue-draggable-plus'

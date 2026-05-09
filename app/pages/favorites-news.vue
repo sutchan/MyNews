@@ -1,3 +1,4 @@
+<!-- app/pages/favorites-news.vue v2.0.0 -->
 <script setup lang="ts">
 import {computed, ref} from 'vue'
 import {useHead} from '@unhead/vue'

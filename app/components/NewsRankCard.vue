@@ -1,3 +1,4 @@
+<!-- app/components/NewsRankCard.vue v2.0.0 -->
 <script setup lang="ts">
 import {computed, ref, watch} from 'vue'
 import {RefreshCw, Globe, Star, GripVertical, TrendingUp, TrendingDown} from 'lucide-vue-next'

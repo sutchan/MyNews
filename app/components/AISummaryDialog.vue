@@ -1,3 +1,4 @@
+<!-- app/components/AISummaryDialog.vue v2.0.0 -->
 <script setup lang="ts">
 import {ref, watch} from 'vue'
 import {Sparkles, TrendingUp, Hash, Loader2, AlertCircle} from 'lucide-vue-next'

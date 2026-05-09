@@ -1,3 +1,4 @@
+<!-- app/components/LoginDialog.vue v2.0.0 -->
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { 

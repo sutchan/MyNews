@@ -1,3 +1,4 @@
+<!-- app/pages/history.vue v2.0.0 -->
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from 'vue'
 import { Calendar, Search, Trash2, Filter, X, Clock, History, ChevronDown, ChevronUp, ExternalLink } from 'lucide-vue-next'

@@ -1,3 +1,4 @@
+// app/composables/useFavorites.ts v2.0.0
 import { ref, computed, onMounted } from 'vue'
 import { useGlobalToast } from './useToast'
 import { useAuth } from './useAuth'

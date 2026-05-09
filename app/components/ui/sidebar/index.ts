@@ -1,3 +1,4 @@
+// app/components/ui/sidebar/index.ts v2.0.0
 import type { VariantProps } from 'class-variance-authority'
 import type { HTMLAttributes } from 'vue'
 import { cva } from 'class-variance-authority'

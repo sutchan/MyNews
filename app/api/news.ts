@@ -1,3 +1,4 @@
+// app/api/news.ts v2.0.0
 import {API_CONFIG, API_ENDPOINTS, type ApiResponse} from './config'
 
 export interface Platform {

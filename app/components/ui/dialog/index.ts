@@ -1,3 +1,4 @@
+// app/components/ui/dialog/index.ts v2.0.0
 export { default as Dialog } from "./Dialog.vue"
 export { default as DialogClose } from "./DialogClose.vue"
 export { default as DialogContent } from "./DialogContent.vue"

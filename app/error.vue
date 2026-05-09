@@ -1,3 +1,4 @@
+<!-- app/error.vue v2.0.0 -->
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'

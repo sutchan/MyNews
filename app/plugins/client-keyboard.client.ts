@@ -1,3 +1,4 @@
+// app/plugins/client-keyboard.client.ts v2.0.0
 // 客户端专用的键盘快捷键处理插件
 export default defineNuxtPlugin(() => {
   // 全局键盘快捷键处理

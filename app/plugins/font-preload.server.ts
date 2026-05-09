@@ -1,3 +1,4 @@
+// app/plugins/font-preload.server.ts v2.0.0
 import ztUrl from '@/assets/fonts/zt.ttf?url'
 import pmzdUrl from '@/assets/fonts/pmzd.ttf?url'
 

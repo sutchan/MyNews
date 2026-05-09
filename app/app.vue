@@ -1,3 +1,4 @@
+<!-- app/app.vue v2.0.0 -->
 <template>
   <div>
     <NuxtPage/>

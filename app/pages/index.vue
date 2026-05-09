@@ -1,3 +1,4 @@
+<!-- app/pages/index.vue v2.0.0 -->
 <script setup lang="ts">
 import {reactive, computed, onMounted, ref} from 'vue'
 import {
@@ -35,13 +36,13 @@ const routeConfig = getRouteConfig('/')!
 
 // 设置页面SEO
 useHead({
-  title: '今日时事 - 新闻第一线',
+  title: '今日时事 - 新闻第一线 v2.0.0',
   meta: [
     {
       name: 'description',
       content: '今日时事为您实时聚合各大平台最新资讯，按时间顺序展示热点新闻动态，包含头条、百度、知乎、V2EX、微博、贴吧、豆瓣、天涯、虎扑、Github、抖音、懂车帝...追踪全网热点、简单高效阅读'
     },
-    {property: 'og:title', content: '今日时事 - 新闻第一线'},
+    {property: 'og:title', content: '今日时事 - 新闻第一线 v2.0.0'},
     {
       property: 'og:description',
       content: '今日时事为您实时聚合各大平台最新资讯，按时间顺序展示热点新闻动态，包含头条、百度、知乎、V2EX、微博、贴吧、豆瓣、天涯、虎扑、Github、抖音、懂车帝...追踪全网热点、简单高效阅读'

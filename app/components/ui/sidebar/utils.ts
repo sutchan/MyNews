@@ -1,3 +1,4 @@
+// app/components/ui/sidebar/utils.ts v2.0.0
 import type { ComputedRef, Ref } from 'vue'
 import { createContext } from 'reka-ui'
 

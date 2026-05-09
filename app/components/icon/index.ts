@@ -1,3 +1,4 @@
+// app/components/icon/index.ts v2.0.0
 export {default as WeiBo} from './weibo.vue'
 export {default as Baidu} from './baidu.vue'
 export {default as DouYin} from './douyin.vue'

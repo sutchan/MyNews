@@ -1,3 +1,4 @@
+// app/api/recommendation.mock.ts v2.0.0
 /**
  * 推荐系统模拟数据服务
  * 提供个性化推荐的模拟数据，用于开发和测试

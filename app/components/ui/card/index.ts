@@ -1,3 +1,4 @@
+// app/components/ui/card/index.ts v2.0.0
 export { default as Card } from './Card.vue'
 export { default as CardAction } from './CardAction.vue'
 export { default as CardContent } from './CardContent.vue'

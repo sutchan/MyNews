@@ -1,3 +1,4 @@
+<!-- app/components/ThemeToggle.vue v2.0.0 -->
 <script setup lang="ts">
 import { Sun, Moon } from 'lucide-vue-next'
 import { useDarkMode } from '@/composables/useDarkMode'

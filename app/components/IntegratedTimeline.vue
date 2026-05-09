@@ -1,3 +1,4 @@
+<!-- app/components/IntegratedTimeline.vue v2.0.0 -->
 <script setup lang="ts">
 import {computed, ref, watch} from 'vue'
 import {Expand, Minimize, RefreshCw, Star, TrendingUp} from 'lucide-vue-next'

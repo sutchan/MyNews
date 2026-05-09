@@ -1,3 +1,4 @@
+// app/components/ui/alert-dialog/index.ts v2.0.0
 export { default as AlertDialog } from "./AlertDialog.vue"
 export { default as AlertDialogAction } from "./AlertDialogAction.vue"
 export { default as AlertDialogCancel } from "./AlertDialogCancel.vue"

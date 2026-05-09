@@ -1,3 +1,4 @@
+<!-- app/components/AppSidebar.vue v2.0.0 -->
 <script setup lang="ts">
 import type {SidebarProps} from '@/components/ui/sidebar'
 import {computed, ref} from 'vue'

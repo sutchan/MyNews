@@ -1,3 +1,4 @@
+// app/api/ai.ts v2.0.0
 import {API_CONFIG, type ApiResponse} from './config'
 
 export interface AISection {

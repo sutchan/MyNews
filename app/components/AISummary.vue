@@ -1,3 +1,4 @@
+<!-- app/components/AISummary.vue v2.0.0 -->
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch } from 'vue'
 import { Sparkles, Clock, RefreshCw, ChevronDown, ChevronUp, Hash, AlertCircle } from 'lucide-vue-next'

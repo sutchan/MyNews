@@ -1,3 +1,4 @@
+<!-- app/components/TimelineNewsContent.vue v2.0.0 -->
 <script setup lang="ts">
 import type {NewsItem} from '@/api'
 

@@ -1,3 +1,4 @@
+// app/components/ui/badge/index.ts v2.0.0
 import { cva, type VariantProps } from 'class-variance-authority'
 
 export { default as Badge } from './Badge.vue'

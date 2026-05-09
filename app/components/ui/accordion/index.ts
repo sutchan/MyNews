@@ -1,3 +1,4 @@
+// app/components/ui/accordion/index.ts v2.0.0
 export { default as Accordion } from "./Accordion.vue"
 export { default as AccordionContent } from "./AccordionContent.vue"
 export { default as AccordionItem } from "./AccordionItem.vue"
